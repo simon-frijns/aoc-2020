@@ -23,9 +23,8 @@ def nop():
     return
 # %% Read instructions
 def read_instruction(pointer, operation, argument, accumulator):
-    if operation != 'jmp': # increment pointer
+    if operation != 'jmp': 
         pointer += 1
-    # operations
     if operation == 'acc':
         return acc(accumulator, argument), pointer
     elif operation == 'jmp':
@@ -35,8 +34,8 @@ def read_instruction(pointer, operation, argument, accumulator):
 
 # %% Run
 def run(ops, args, part):
-    pointer = 0 # incrementer that runs through the list of instructions
-    argument = 0 # 
+    pointer = 0 
+    argument = 0  
     accumulator = 0
     visited = set()
     running = True
