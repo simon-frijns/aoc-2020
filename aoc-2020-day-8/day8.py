@@ -40,7 +40,7 @@ def run(ops, args, part):
     accumulator = 0
     visited = set()
     running = True
-    result = "We failed"
+    result = ""
 
     while running:
         try: 
@@ -88,3 +88,5 @@ for n in nops:
     result, accumulator, pointer = run(mod_ops, args, part)
     if result == "Part 2":
         print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
+
+# %%
