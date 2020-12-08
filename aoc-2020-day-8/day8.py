@@ -34,9 +34,7 @@ def read_instruction(pointer, operation, argument, accumulator):
 
 # %% Run
 def run(ops, args, part):
-    pointer = 0 
-    argument = 0  
-    accumulator = 0
+    pointer = argument = accumulator = 0 
     visited = set()
     running = True
     result = ""
@@ -46,19 +44,16 @@ def run(ops, args, part):
             operation, argument = ops[pointer], args[pointer]
             if pointer == (len(ops) - 1):
                 result = "Part 2"
-                running = False
                 return result, accumulator, pointer
             if pointer in visited:
                 if part == 1:
                     result = "Part 1"
-                running = False
                 return result, accumulator, pointer
             else:
                 visited.add(pointer)
                 accumulator, pointer = read_instruction(pointer, operation, argument, accumulator)
         except IndexError:
             result = "IndexError"
-            running = False
             return result, accumulator, pointer
         continue
 
@@ -87,5 +82,4 @@ for n in nops:
     result, accumulator, pointer = run(mod_ops, args, part)
     if result == "Part 2":
         print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
-
 # %%
