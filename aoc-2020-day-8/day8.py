@@ -69,7 +69,6 @@ run(ops, args, 1)
 
 # %% part 2
 import copy
-
 jmps = [i for i, x in enumerate(ops) if x == 'jmp']
 nops = [i for i, x in enumerate(ops) if x == 'nop']
 
