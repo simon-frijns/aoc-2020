@@ -43,7 +43,8 @@ def run(ops, args, part):
         try: 
             operation, argument = ops[pointer], args[pointer]
             if pointer == (len(ops) - 1):
-                result = "Part 2"
+                if part == 2:
+                    result = "Part 2"
                 return result, accumulator, pointer
             if pointer in visited:
                 if part == 1:
@@ -82,4 +83,3 @@ for n in nops:
     result, accumulator, pointer = run(mod_ops, args, part)
     if result == "Part 2":
         print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
-# %%
