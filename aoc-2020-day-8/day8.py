@@ -1,7 +1,4 @@
-# To add a new cell, type '# %%'
-# To add a new markdown cell, type '# %% [markdown]'
 # %% Read input
-
 with open("input.txt", "r") as input_file:
     inp = input_file.read().strip().split('\n') 
 
@@ -14,7 +11,6 @@ for line in inp:
     args.append(int(b))
 
 # %% Functions
-
 def acc(accumulator, value):
     accumulator = accumulator + value
     return accumulator
@@ -26,7 +22,6 @@ def jmp(pointer, value):
 def nop():
     return
 # %% Read instructions
-
 def read_instruction(pointer, operation, argument, accumulator):
     if operation != 'jmp': # increment pointer
         pointer += 1
@@ -39,7 +34,6 @@ def read_instruction(pointer, operation, argument, accumulator):
         return accumulator, pointer
 
 # %% Run
-
 def run(ops, args, part):
     pointer = 0 # incrementer that runs through the list of instructions
     argument = 0 # 
