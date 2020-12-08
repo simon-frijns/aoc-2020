@@ -5,7 +5,7 @@
 with open("input.txt", "r") as input_file:
     inp = input_file.read().strip().split('\n') 
 
-# %%
+# %% Parse input
 ops, args = [], []
 
 for line in inp:
@@ -25,7 +25,7 @@ def jmp(pointer, value):
 
 def nop():
     return
-# %% Read_instructions
+# %% Read instructions
 
 def read_instruction(pointer, operation, argument, accumulator):
     if operation != 'jmp': # increment pointer
@@ -46,38 +46,53 @@ def run(ops, args, part):
     accumulator = 0
     visited = set()
     running = True
+    result = "We failed"
 
     while running:
         try: 
             operation, argument = ops[pointer], args[pointer]
             if pointer == (len(ops) - 1):
-                print("Terminated on %s" % accumulator)
+                result = "Part 2"
+                running = False
+                return result, accumulator, pointer
             if pointer in visited:
                 if part == 1:
-                    print("Errored out on %s at %s" % (accumulator, pointer))
+                    result = "Part 1"
                 running = False
+                return result, accumulator, pointer
             else:
                 visited.add(pointer)
                 accumulator, pointer = read_instruction(pointer, operation, argument, accumulator)
         except IndexError:
-            print("Pointer too high on %s at %s" % (accumulator, pointer))
+            result = "IndexError"
             running = False
+            return result, accumulator, pointer
         continue
 
 # %% part 1
-run(ops, args, 1)
+part = 1
+result, accumulator, pointer = run(ops, args, part)
+
+print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
 
 # %% part 2
 import copy
 jmps = [i for i, x in enumerate(ops) if x == 'jmp']
 nops = [i for i, x in enumerate(ops) if x == 'nop']
+part = 2
 
 for j in jmps:
     mod_ops = copy.deepcopy(ops)
     mod_ops[j] = 'nop'
-    run(mod_ops, args, 2)
+    result, accumulator, pointer = run(mod_ops, args, part)
+    if result == "Part 2":
+        print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
 
 for n in nops:
     mod_ops = copy.deepcopy(ops)
     mod_ops[j] = 'jmp'
-    run(mod_ops, args, 2)
+    result, accumulator, pointer = run(mod_ops, args, part)
+    if result == "Part 2":
+        print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
+
+# %%
