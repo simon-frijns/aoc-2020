@@ -11,26 +11,26 @@ for line in inp:
     args.append(int(b))
 
 # %% Functions
-def acc(accumulator, value):
-    accumulator = accumulator + value
-    return accumulator
+def acc(accumulator, pointer, argument):
+    accumulator = accumulator + argument
+    return accumulator, pointer
 
-def jmp(pointer, value):
-    pointer = pointer + value
-    return pointer
+def jmp(accumulator, pointer, argument):
+    pointer = pointer + argument
+    return accumulator, pointer
 
-def nop():
-    return
+def nop(accumulator, pointer, argument):
+    return accumulator, pointer
 # %% Read instructions
 def read_instruction(pointer, operation, argument, accumulator):
     if operation != 'jmp': 
         pointer += 1
     if operation == 'acc':
-        return acc(accumulator, argument), pointer
+        return acc(accumulator, pointer, argument)
     elif operation == 'jmp':
-        return accumulator, jmp(pointer, argument)
+        return jmp(accumulator, pointer, argument)
     elif operation == 'nop':
-        return accumulator, pointer
+        return nop(accumulator, pointer, argument)
 
 # %% Run
 def run(ops, args, part):
@@ -40,22 +40,18 @@ def run(ops, args, part):
     result = ""
 
     while running:
-        try: 
-            operation, argument = ops[pointer], args[pointer]
-            if pointer == (len(ops) - 1):
-                if part == 2:
-                    result = "Part 2"
-                return result, accumulator, pointer
-            if pointer in visited:
-                if part == 1:
-                    result = "Part 1"
-                return result, accumulator, pointer
-            else:
-                visited.add(pointer)
-                accumulator, pointer = read_instruction(pointer, operation, argument, accumulator)
-        except IndexError:
-            result = "IndexError"
+        operation, argument = ops[pointer], args[pointer]
+        if pointer == (len(ops) - 1):
+            if part == 2:
+                result = "Part 2"
             return result, accumulator, pointer
+        if pointer in visited:
+            if part == 1:
+                result = "Part 1"
+            return result, accumulator, pointer
+        else:
+            visited.add(pointer)
+            accumulator, pointer = read_instruction(pointer, operation, argument, accumulator)
         continue
 
 # %% part 1
@@ -83,3 +79,4 @@ for n in nops:
     result, accumulator, pointer = run(mod_ops, args, part)
     if result == "Part 2":
         print(result + ": accumulator %s, pointer %s" % (accumulator, pointer))
+# %%
