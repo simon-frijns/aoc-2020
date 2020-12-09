@@ -8,26 +8,28 @@ from itertools import permutations as prmt
 pream = 25
 pointer = pream + 1
 options = set()
-running = True
 
-while running:
+lastnum = len(inp)
+for i in range(lastnum):
+    pointer = i + pream
     options.clear()
-    pointer += 1
-    perm = prmt(inp[pointer-pream:pointer], 2)
+    perm = prmt(inp[i:i+pream], 2)
     for i in list(perm):
         options.add(sum(i))
     if inp[pointer] not in options:
         part_1 = inp[pointer]
-        print("Part 1 : %s" % part_1)
-        running = False
+        break
+
+print("Part 1: %s" % part_1)
 # %% part 2
-options = []
-window = 0
+
 lastnum = len(inp)
 for i in range(lastnum):
     for j in range(i+2, lastnum):
         if sum(inp[i:j]) == part_1:
-            part_2 = min(inp[i:j]) + max(inp[i:j])
+            low = min(inp[i:j])
+            high = max(inp[i:j])
+            part_2 = low + high
 
-print(part_2)
+print("Part 2: %s with %s as lowest and %s as highest" % (part_2, low, high))
 # %%
