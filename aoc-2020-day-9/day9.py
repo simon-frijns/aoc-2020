@@ -21,9 +21,8 @@ for i in range(lastnum):
         break
 
 print("Part 1: %s" % part_1)
-# %% part 2
 
-lastnum = len(inp)
+# %% part 2
 for i in range(lastnum):
     for j in range(i+2, lastnum):
         if sum(inp[i:j]) == part_1:
