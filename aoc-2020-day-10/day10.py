@@ -22,7 +22,6 @@ while len(queue) > 0:
 print(onejolt * threejolt)
 # %% part 2
 
-lastnum = len(inp) - 1
 pathdict = {} # dictionary ->  set of i's, with value of paths stored for that i
 
 def num_paths(i):
